@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import logoImg from "../assets/logo.png";
+
 function Header() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [user, setUser] = useState<any>(null);
@@ -34,7 +36,7 @@ function Header() {
         <header className="header">
           {/* Logo */}
           <Link to={user ? "/dashboard" : "/"} className="header__logo">
-            <img src="./src/assets/logo.png" alt="logo" />
+            <img src={logoImg} alt="logo" />
           </Link>
 
           {/* Burger Button */}

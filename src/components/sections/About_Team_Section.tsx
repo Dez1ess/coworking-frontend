@@ -1,3 +1,7 @@
+import team1 from "../../assets/team_1.png";
+import team2 from "../../assets/team_2.png";
+import team3 from "../../assets/team_3.png";
+
 function About_Team_Section() {
   return (
     <>
@@ -8,7 +12,7 @@ function About_Team_Section() {
         <div className="about-team__cards">
           <div className="about-team-card">
             <div className="about-team-card__img">
-              <img src="./src/assets/team_1.png" alt="" />
+              <img src={team1} alt="" />
             </div>
             <div className="about-team-card__name">John Smith</div>
             <div className="about-team-card__position">Founder & CEO</div>
@@ -19,7 +23,7 @@ function About_Team_Section() {
           </div>
           <div className="about-team-card">
             <div className="about-team-card__img">
-              <img src="./src/assets/team_2.png" alt="" />
+              <img src={team2} alt="" />
             </div>
             <div className="about-team-card__name">Sarah Johnson</div>
             <div className="about-team-card__position">Community Manager</div>
@@ -30,7 +34,7 @@ function About_Team_Section() {
           </div>
           <div className="about-team-card">
             <div className="about-team-card__img">
-              <img src="./src/assets/team_3.png" alt="" />
+              <img src={team3} alt="" />
             </div>
             <div className="about-team-card__name">Mike Chen</div>
             <div className="about-team-card__position">Operations Manager</div>

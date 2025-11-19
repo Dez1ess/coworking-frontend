@@ -1,3 +1,5 @@
+import ourMissionImg from "../../assets/our-mission.jpg";
+
 function About_Mission_Section() {
   return (
     <>
@@ -26,7 +28,7 @@ function About_Mission_Section() {
           </div>
         </div>
         <div className="about-mission-img">
-          <img src="./src/assets/our-mission.jpg" alt="" />
+          <img src={ourMissionImg} alt="" />
         </div>
       </section>
     </>

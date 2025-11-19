@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import heroSectionImg from "../../assets/hero_section_image.jpg";
 
 function Home_Hero_Section() {
   return (
@@ -9,7 +10,7 @@ function Home_Hero_Section() {
           <Link to={"/login"}>Book a workspace</Link>
         </div>
         <div className="home-hero__img">
-          <img src="./src/assets/hero_section_image.jpg" alt="" />
+          <img src={heroSectionImg} alt="" />
         </div>
       </section>
     </>
