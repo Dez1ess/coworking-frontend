@@ -1,0 +1,127 @@
+@use "../functions.scss" as *;
+
+.payments {
+  margin-top: 130px;
+
+  &__title {
+    text-align: center;
+
+    & > * {
+      color: var(--black);
+      font-family: var(--font);
+      font-size: ac(30px, 18px, 1024px, 1440px);
+      line-height: 1.16;
+    }
+  }
+
+  &__descr {
+    text-align: center;
+
+    & > * {
+      margin-top: 10px;
+      color: #666;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+  }
+
+  &__cards {
+    margin-top: ac(40px, 20px, 1024px, 1440px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    .payments-card {
+      flex: 1;
+      max-width: 450px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: ac(30px, 20px, 1024px, 1440px);
+      border-radius: 8px;
+      background: var(--neutral);
+
+      &__title {
+        color: #999;
+        font-family: var(--font);
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      &__value {
+        color: var(--black);
+        font-family: var(--font);
+        font-size: ac(27px, 18px, 1024px, 1440px);
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      &__descr {
+        color: #666;
+        font-family: var(--font);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.65;
+      }
+    }
+  }
+
+  &-table {
+    margin-top: ac(40px, 20px, 1024px, 1440px);
+
+    &-head {
+      display: flex;
+      align-items: center;
+      background-color: var(--primary);
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+
+      &__col {
+        flex: 1;
+        padding: ac(18px, 12px, 1024px, 1440px);
+        color: var(--white);
+        font-family: var(--font);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+    }
+    &-row {
+      display: flex;
+      align-items: center;
+
+      &__col {
+        flex: 1;
+        padding: ac(18px, 12px, 1024px, 1440px);
+        color: var(--black);
+        font-family: var(--font);
+        font-size: 14px;
+        line-height: 1.1;
+        letter-spacing: 0.5px;
+
+        &.date {
+          font-weight: 700;
+        }
+
+        &.price {
+          font-weight: 700;
+          color: var(--secondary);
+        }
+
+        &.method {
+          color: #666;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}

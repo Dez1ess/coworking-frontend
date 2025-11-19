@@ -1,0 +1,91 @@
+@use "../functions.scss" as *;
+
+.advanteges {
+  padding: ac(50px, 25px, 1024px, 1440px) 0;
+
+  &__title {
+    margin-bottom: 11px;
+
+    & > * {
+      color: var(--black);
+      text-align: center;
+      font-family: var(--font);
+      font-size: ac(36px, 24px, 1024px, 1440px);
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  &__descr {
+    & > * {
+      color: #666;
+      text-align: center;
+      font-family: var(--font);
+      font-size: ac(16px, 14px, 1024px, 1440px);
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  &__cards {
+    margin-top: ac(50px, 25px, 1024px, 1440px);
+
+    display: flex;
+    align-items: center;
+    gap: ac(30px, 15px, 1024px, 1440px);
+    flex-wrap: wrap;
+
+    .advanteges-card {
+      flex: 1;
+      display: flex;
+      padding: ac(40px, 20px, 1024px, 1440px);
+      flex-direction: column;
+      align-items: center;
+      gap: 11px;
+
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
+
+      &__img {
+        span {
+          text-align: center;
+          font-family: var(--font);
+          font-size: ac(60px, 40px, 1024px, 1440px);
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+
+      &__title {
+        & > * {
+          color: var(--black);
+          text-align: center;
+          font-family: var(--font);
+          font-size: ac(20px, 16px, 1024px, 1440px);
+          font-weight: 700;
+          line-height: normal;
+        }
+      }
+
+      &__descr {
+        & > * {
+          color: #666;
+          text-align: center;
+          font-family: var(--font);
+          font-size: ac(15px, 13px, 1024px, 1440px);
+          font-weight: 400;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1023px) {
+    &__cards {
+      .advanteges-card {
+        flex: 1 1 50%;
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@use "./Loader.scss" as *;
+
+@use "./Header.scss" as *;
+@use "./Footer.scss" as *;
+
+@use "./Login.scss" as *;
+
+@use "./sections/Home_Hero_Section.scss" as *;
+@use "./sections/Advanteges_Section.scss" as *;
+@use "./sections/About_Hero_Section.scss" as *;
+@use "./sections/About_Mission_Section.scss" as *;
+@use "./sections/About_Values_Section.scss" as *;
+@use "./sections/About_Team_Section.scss" as *;
+@use "./sections/Services_Section.scss" as *;
+@use "./sections/Bookings_Section.scss" as *;
+@use "./sections/Contact_Section.scss" as *;
+
+@use "./sections/Dashboard_Section.scss" as *;
+@use "./sections/Workspaces_Section.scss" as *;
+@use "./sections/Payments_Section.scss" as *;
+@use "./sections/Reviews_Section.scss" as *;

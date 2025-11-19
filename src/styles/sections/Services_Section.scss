@@ -1,0 +1,158 @@
+@use "../functions.scss" as *;
+
+.services {
+  margin-top: 130px;
+
+  &__title {
+    & > * {
+      color: var(--black);
+      text-align: center;
+      font-family: var(--font);
+      font-size: ac(36px, 24px, 1024px, 1440px);
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  &__descr {
+    margin-top: ac(12px, 8px, 1024px, 1440px);
+
+    & > * {
+      color: #666;
+      text-align: center;
+      font-family: var(--font);
+      font-size: ac(16px, 14px, 1024px, 1440px);
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  &__cards {
+    margin-top: ac(50px, 25px, 1024px, 1440px);
+    display: flex;
+    align-items: stretch;
+    gap: ac(25px, 20px, 1024px, 1440px);
+
+    .services-card {
+      flex: 1;
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+      padding: ac(30px, 16px, 1024px, 1440px);
+
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+
+      &__banner {
+        color: var(--white);
+        font-family: var(--font);
+        font-size: ac(13px, 12px, 1024px, 1440px);
+        font-weight: 700;
+        line-height: normal;
+        border-radius: 20px;
+        background: var(--primary);
+        width: fit-content;
+        padding: 6px 12px;
+      }
+
+      &__name {
+        color: var(--black);
+        font-family: var(--font);
+        font-size: ac(22px, 18px, 1024px, 1440px);
+        font-weight: 700;
+        line-height: normal;
+      }
+
+      &__descr {
+        color: #999;
+        font-family: var(--font);
+        font-size: ac(14px, 12px, 1024px, 1440px);
+        font-weight: 400;
+        line-height: normal;
+      }
+
+      &__price {
+        color: #999;
+        font-family: var(--font);
+        font-size: ac(16px, 14px, 1024px, 1440px);
+        font-weight: 700;
+        line-height: normal;
+
+        span {
+          color: var(--primary);
+          font-size: ac(31px, 20px, 1024px, 1440px);
+          font-weight: 700;
+          line-height: normal;
+        }
+      }
+
+      &__list {
+        margin: ac(30px, 20px, 1024px, 1440px) 0;
+        display: flex;
+        flex-direction: column;
+        gap: ac(22px, 14px, 1024px, 1440px);
+        padding-left: 0;
+        list-style: none;
+
+        li {
+          color: var(--black);
+          font-family: var(--font);
+          font-size: ac(14px, 12px, 1024px, 1440px);
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+
+      &__btn {
+        margin-top: auto;
+        color: var(--white);
+        text-align: center;
+        font-family: var(--font);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: normal;
+        border-radius: 4px;
+        background: var(--primary);
+        display: flex;
+        padding: 12px 12px 13px 12px;
+        border: 1px solid transparent;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+
+        &:hover {
+          background: var(--white);
+          color: var(--primary);
+          border-color: var(--primary);
+        }
+      }
+
+      &.popular {
+        transform: scale(1.03);
+        border: 2px solid var(--primary);
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+
+        .services-card__btn {
+          background: var(--secondary);
+
+          &:hover {
+            background: var(--white);
+            color: var(--secondary);
+            border-color: var(--secondary);
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__cards {
+      flex-direction: column;
+
+      .services-card.popular {
+        transform: none;
+      }
+    }
+  }
+}

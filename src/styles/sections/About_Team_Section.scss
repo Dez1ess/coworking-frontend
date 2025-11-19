@@ -1,0 +1,83 @@
+@use "../functions.scss" as *;
+
+.about-team {
+  margin-top: ac(50px, 25px, 1024px, 1440px);
+
+  &__title {
+    margin-bottom: ac(50px, 25px, 1024px, 1440px);
+
+    & > * {
+      color: var(--black);
+      text-align: center;
+      font-family: var(--font);
+      font-size: ac(32px, 24px, 1024px, 1440px);
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  &__cards {
+    display: flex;
+    align-items: center;
+    gap: ac(40px, 20px, 1024px, 1440px);
+    border-radius: 8px;
+
+    .about-team-card {
+      flex: 1;
+      background: var(--neutral);
+      padding: ac(30px, 16px, 1024px, 1440px);
+      text-align: center;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: ac(12px, 10px, 1024px, 1440px);
+
+      &__img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        background: linear-gradient(135deg, #667eea 0%, #f50057 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        img {
+          max-width: 80%;
+        }
+      }
+
+      &__name {
+        color: var(--black);
+        font-family: var(--font);
+        font-size: ac(18px, 16px, 1024px, 1440px);
+        font-weight: 700;
+        line-height: normal;
+      }
+
+      &__position {
+        color: var(--primary);
+        font-family: var(--font);
+        font-size: ac(14px, 12px, 1024px, 1440px);
+        font-weight: 700;
+        line-height: normal;
+      }
+
+      &__descr {
+        color: #666;
+        font-family: var(--font);
+        font-size: ac(14px, 12px, 1024px, 1440px);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  @media (max-width: 551px) {
+    &__cards {
+      flex-direction: column;
+    }
+  }
+}

@@ -1,0 +1,98 @@
+@use "./functions.scss" as *;
+
+.footer-wr {
+  padding: ac(40px, 20px, 1024px, 1440px) 0;
+  margin-top: ac(50px, 25px, 1024px, 1440px);
+  border-top: 1px solid rgba(0, 0, 0, 0.35);
+  background: #eee;
+
+  align-self: end;
+}
+
+.footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  &__columns {
+    display: flex;
+    align-items: flex-start;
+    gap: ac(115px, 40px, 1024px, 1440px);
+  }
+
+  &-column {
+    flex: 1;
+    max-width: ac(500px, 300px, 1024px, 1440px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
+    &__title {
+      color: var(--black);
+      font-family: var(--font);
+      font-size: ac(16px, 14px, 1024px, 1440px);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      list-style: none;
+      padding-left: 0;
+
+      li {
+        color: var(--black);
+        font-family: var(--font);
+        font-size: ac(14px, 12px, 1024px, 1440px);
+        font-weight: 400;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  &__socials {
+    display: flex;
+    align-items: center;
+    gap: ac(16px, 14px, 1024px, 1440px);
+
+    a {
+      svg {
+        path {
+          transition: 0.3s;
+        }
+      }
+
+      &:hover {
+        svg {
+          path {
+            fill: var(--secondary);
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1023px) {
+    flex-direction: column;
+    gap: 30px;
+
+    &__socials {
+      align-self: flex-end;
+    }
+  }
+
+  @media (max-width: 551px) {
+    &__columns {
+      flex-direction: column;
+      gap: 20px;
+
+      .footer-column {
+        max-width: 100%;
+      }
+    }
+  }
+}
