@@ -38,9 +38,12 @@ function Dashboard_Section() {
           return;
         }
 
-        const response = await axios.get("/api/payments", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/payments`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         setPayments(response.data);
 
@@ -61,11 +64,14 @@ function Dashboard_Section() {
   useEffect(() => {
     const fetchRecent = async () => {
       try {
-        const res = await axios.get("/api/bookings/recent", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/bookings/recent`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         setRecentBookings(res.data);
       } catch (err) {
@@ -79,11 +85,14 @@ function Dashboard_Section() {
   useEffect(() => {
     const fetchAllBookings = async () => {
       try {
-        const res = await axios.get("/api/bookings/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/bookings/`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         setBookings(res.data);
       } catch (err) {
@@ -138,7 +147,9 @@ function Dashboard_Section() {
           </div>
           <div className="dashboard-card">
             <div className="dashboard-card__title">💳 Payments Summary</div>
-            <div className="dashboard-card__value">${totalSpent.toFixed(2)}</div>
+            <div className="dashboard-card__value">
+              ${totalSpent.toFixed(2)}
+            </div>
           </div>
         </div>
         <div className="dashboard__bookings">

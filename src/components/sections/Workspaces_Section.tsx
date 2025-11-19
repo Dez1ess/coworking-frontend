@@ -30,7 +30,9 @@ function Workspaces_Section() {
   useEffect(() => {
     const fetchTariffs = async () => {
       try {
-        const response = await axios.get("/api/tariffs");
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/tariffs`
+        );
         setTariffs(response.data);
       } catch (err) {
         console.error("Error fetching tariffs:", err);
@@ -83,7 +85,9 @@ function Workspaces_Section() {
     const fetchSpaces = async () => {
       try {
         // Отримуємо ВСІ workspace'и
-        const allResponse = await axios.get("/api/workspaces");
+        const allResponse = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/workspaces`
+        );
         let allSpaces: Record<string, Space[]> = {
           standard: [],
           premium: [],
@@ -108,7 +112,9 @@ function Workspaces_Section() {
           );
 
           if (timeRange) {
-            const url = `/api/workspaces?start_time=${encodeURIComponent(
+            const url = `${
+              import.meta.env.VITE_API_URL
+            }/api/workspaces?start_time=${encodeURIComponent(
               timeRange.start
             )}&end_time=${encodeURIComponent(timeRange.end)}`;
             const availableResponse = await axios.get(url);
@@ -211,7 +217,7 @@ function Workspaces_Section() {
       const { total } = updatePricing();
 
       const res = await axios.post(
-        "/api/bookings",
+        `${import.meta.env.VITE_API_URL}/api/bookings`,
         {
           workspace_id: workspace.workspace_id,
           workspace_number: workspace.workspace_number,

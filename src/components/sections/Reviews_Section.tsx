@@ -59,7 +59,7 @@ function Reviews_Section() {
         console.log("User ID from token:", tokenPayload.id);
 
         const reviewsRes = await axios.get(
-          `/api/reviews`,
+          `${import.meta.env.VITE_API_URL}/api/reviews`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -115,7 +115,7 @@ function Reviews_Section() {
 
       if (isEditing && editId) {
         const res = await axios.put(
-          `/api/reviews/${editId}`,
+          `${import.meta.env.VITE_API_URL}/api/reviews/${editId}`,
           { rating, review_text: text },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -125,7 +125,7 @@ function Reviews_Section() {
         );
       } else {
         const res = await axios.post(
-          `/api/reviews`,
+          `${import.meta.env.VITE_API_URL}/api/reviews`,
           { rating, review_text: text },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -150,9 +150,12 @@ function Reviews_Section() {
     const token = localStorage.getItem("token");
     if (!token) return console.error("No token found");
 
-    await axios.delete(`/api/reviews/${reviewId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    await axios.delete(
+      `${import.meta.env.VITE_API_URL}/api/reviews/${reviewId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
 
     setReviews((prev) => prev.filter((r) => r.review_id !== reviewId));
 

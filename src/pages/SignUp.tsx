@@ -15,7 +15,7 @@ function SignUp() {
     setError("");
     try {
       const { data } = await axios.post(
-        "/api/auth/register",
+        `${import.meta.env.VITE_API_URL}/api/auth/register`,
         form
       );
       alert("Registration successful! You can now log in.");

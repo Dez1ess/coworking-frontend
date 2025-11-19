@@ -21,9 +21,12 @@ function Bookings_Section() {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const response = await axios.get("/api/bookings", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/bookings`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         setBookings(
           response.data.map((b: any) => ({
@@ -49,7 +52,9 @@ function Bookings_Section() {
       if (!token) return;
 
       await axios.patch(
-        `/api/bookings/cancel/${booking.booking_id}`,
+        `${import.meta.env.VITE_API_URL}/api/bookings/cancel/${
+          booking.booking_id
+        }`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

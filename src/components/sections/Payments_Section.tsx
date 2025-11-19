@@ -26,9 +26,12 @@ function Payments_Section() {
         return;
       }
 
-      const response = await axios.get("/api/payments", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/payments`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       setPayments(response.data);
 
