@@ -79,6 +79,8 @@ function Dashboard_Section() {
       }
     };
 
+    console.log(import.meta.env.VITE_API_URL)
+
     fetchRecent();
   }, [token]);
 
