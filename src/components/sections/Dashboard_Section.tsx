@@ -20,7 +20,16 @@ interface BookingsInterface {
   status: string;
 }
 
+interface UserInterface {
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  role: "user" | "admin";
+}
+
 function Dashboard_Section() {
+  const [user, setUser] = useState<UserInterface | null>(null);
   const [bookings, setBookings] = useState<BookingsInterface[]>([]);
   const [recentBookings, setRecentBookings] = useState<BookingsInterface[]>([]);
   const token = localStorage.getItem("token");
@@ -105,6 +114,28 @@ function Dashboard_Section() {
     fetchAllBookings();
   }, [token]);
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/users/me`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setUser(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUserInfo();
+  }, [token]);
+
   const upcomingBookings = [...bookings]
     .map((b) => {
       const start = new Date(b.start_time);
@@ -127,11 +158,12 @@ function Dashboard_Section() {
     const now = new Date();
     return end < now ? "completed" : "upcoming";
   };
+  
 
   return (
     <>
       <section className="dashboard">
-        <div className="dashboard__welcome">Welcome back, David! 👋</div>
+        <div className="dashboard__welcome">Welcome back, {user?.first_name || "User"}! 👋</div>
         <div className="dashboard__buttons">
           <Link className="book-btn" to={"/workspaces"}>
             📅 Book a Workspace
