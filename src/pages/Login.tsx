@@ -16,11 +16,16 @@ function Login() {
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/auth/login`,
-        form
+        form,
       );
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
-      navigate("/dashboard");
+
+      if (data.user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err: any) {
       console.error(err);
       setError(err.response?.data?.message || "Login failed");

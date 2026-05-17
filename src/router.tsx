@@ -16,10 +16,28 @@ import Bookings from "./pages/Bookings";
 import Payments from "./pages/Payments";
 import Reviews from "./pages/Reviews";
 
+//Admin Pages
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminWorkspaces from "./pages/AdminWorkspaces";
+
 const PublicLayout = () => {
   const user = localStorage.getItem("user");
 
   if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return <Outlet />;
+};
+
+const AdminLayout = () => {
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (user.role !== "admin") {
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -60,6 +78,13 @@ export const router = createBrowserRouter([
           { path: "/bookings", element: <Bookings /> },
           { path: "/payments", element: <Payments /> },
           { path: "/reviews", element: <Reviews /> },
+        ],
+      },
+      {
+        element: <AdminLayout />,
+        children: [
+          { path: "/admin", element: <AdminDashboard /> },
+          { path: "/admin/workspaces", element: <AdminWorkspaces /> },
         ],
       },
     ],
