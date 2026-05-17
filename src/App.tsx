@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Loader from "./components/Loader";
+import { Toaster } from "react-hot-toast";
 
 import "./App.scss";
 import "./styles/_all.scss";
@@ -35,6 +36,7 @@ function App() {
         <Outlet />
       </div>
       <Footer />
+      <Toaster position="top-center" />
     </>
   );
 }
