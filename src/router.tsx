@@ -20,6 +20,7 @@ import Reviews from "./pages/Reviews";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminWorkspaces from "./pages/AdminWorkspaces";
 import AdminBookings from "./pages/AdminBookings";
+import AdminReviews from "./pages/AdminReviews";
 
 const PublicLayout = () => {
   const user = localStorage.getItem("user");
@@ -87,6 +88,7 @@ export const router = createBrowserRouter([
           { path: "/admin", element: <AdminDashboard /> },
           { path: "/admin/workspaces", element: <AdminWorkspaces /> },
           { path: "/admin/bookings", element: <AdminBookings /> },
+          { path: "/admin/reviews", element: <AdminReviews /> },
         ],
       },
     ],

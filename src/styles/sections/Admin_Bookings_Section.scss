@@ -5,7 +5,7 @@
   background: #f6f7fb;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 30px;
 
   h1 {
     font-size: 28px;
@@ -34,7 +34,8 @@
 
     padding: 12px 14px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
     background: #fff;
 
     font-size: 14px;
@@ -56,7 +57,7 @@
   .filter-btn {
     padding: 8px 12px;
     border-radius: 999px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     background: #fff;
 
     font-size: 12px;
@@ -104,7 +105,7 @@
       top: 0;
       width: 2px;
       height: 100%;
-      background: linear-gradient(180deg, #4f8cff, #6c5ce7);
+      background: linear-gradient(180deg, #c74fff, #6c5ce7);
     }
 
     &:hover {
@@ -177,7 +178,7 @@
     flex: 1;
     padding: 10px;
     border-radius: 10px;
-    border: none;
+    border: 1px solid #c9c9c9;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;

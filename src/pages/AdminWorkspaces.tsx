@@ -29,10 +29,14 @@ function AdminWorkspaces() {
   // ================= FETCH =================
   const fetchWorkspaces = async () => {
     setLoading(true);
+
     try {
       const res = await axios.get(API, {
-        headers: { Authorization: `Bearer ${getToken()}` },
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
       });
+
       setWorkspaces(res.data);
     } catch (err) {
       console.error(err);
@@ -45,27 +49,33 @@ function AdminWorkspaces() {
     fetchWorkspaces();
   }, []);
 
-  // ================= OPEN MODAL =================
+  // ================= CREATE =================
   const openCreate = () => {
     setEditingId(null);
+
     setFormData({
       workspace_number: "",
       type: "standard",
       status: "available",
     });
+
     setModalOpen(true);
   };
 
-  const handleEdit = (w: Workspace) => {
-    setEditingId(w.workspace_id);
+  // ================= EDIT =================
+  const handleEdit = (workspace: Workspace) => {
+    setEditingId(workspace.workspace_id);
+
     setFormData({
-      workspace_number: w.workspace_number,
-      type: w.type,
-      status: w.status,
+      workspace_number: workspace.workspace_number,
+      type: workspace.type,
+      status: workspace.status,
     });
+
     setModalOpen(true);
   };
 
+  // ================= CLOSE MODAL =================
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -75,16 +85,21 @@ function AdminWorkspaces() {
     if (!formData.workspace_number.trim()) return;
 
     setSaving(true);
+
     try {
       const token = getToken();
 
       if (editingId) {
         await axios.put(`${API}/${editingId}`, formData, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
       } else {
         await axios.post(API, formData, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
       }
 
@@ -100,13 +115,22 @@ function AdminWorkspaces() {
   // ================= DELETE =================
   const handleDelete = async (id: number) => {
     const ok = confirm("Delete workspace?");
+
     if (!ok) return;
 
-    await axios.delete(`${API}/${id}`, {
-      headers: { Authorization: `Bearer ${getToken()}` },
-    });
+    try {
+      await axios.delete(`${API}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
 
-    setWorkspaces((prev) => prev.filter((w) => w.workspace_id !== id));
+      setWorkspaces((prev) =>
+        prev.filter((workspace) => workspace.workspace_id !== id),
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -125,54 +149,64 @@ function AdminWorkspaces() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table className="admin-workspaces__table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Workspace</th>
-              <th>Type</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+        <div className="admin-workspaces__grid">
+          {workspaces.map((workspace) => (
+            <div
+              key={workspace.workspace_id}
+              className="admin-workspaces__card"
+            >
+              <div className="admin-workspaces__card-top">
+                <div>
+                  <p className="admin-workspaces__label">Workspace</p>
 
-          <tbody>
-            {workspaces.map((w) => (
-              <tr key={w.workspace_id}>
-                <td>{w.workspace_id}</td>
-                <td>{w.workspace_number}</td>
-                <td>{w.type}</td>
-                <td>
-                  <span
-                    className={`admin-workspaces__status admin-workspaces__status--${w.status}`}
-                  >
-                    {w.status}
-                  </span>
-                </td>
-                <td>
-                  <div className="admin-workspaces__actions">
-                    <button
-                      onClick={() => handleEdit(w)}
-                      className="admin-workspaces__btn admin-workspaces__btn--edit"
-                    >
-                      Edit
-                    </button>
+                  <h3 className="admin-workspaces__workspace">
+                    {workspace.workspace_number}
+                  </h3>
+                </div>
 
-                    <button
-                      onClick={() => handleDelete(w.workspace_id)}
-                      className="admin-workspaces__btn admin-workspaces__btn--delete"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                <span
+                  className={`admin-workspaces__status admin-workspaces__status--${workspace.status}`}
+                >
+                  {workspace.status}
+                </span>
+              </div>
+
+              <div className="admin-workspaces__info">
+                <div className="admin-workspaces__info-item">
+                  <span>ID:</span>
+
+                  <strong>{workspace.workspace_id}</strong>
+                </div>
+
+                <div className="admin-workspaces__info-item">
+                  <span>Type:</span>
+
+                  <strong>{workspace.type}</strong>
+                </div>
+              </div>
+
+              <div className="admin-workspaces__actions">
+                <button
+                  onClick={() => handleEdit(workspace)}
+                  className="admin-workspaces__btn admin-workspaces__btn--edit"
+                >
+                  Edit
+                </button>
+
+                <button
+                  onClick={() => handleDelete(workspace.workspace_id)}
+                  className="admin-workspaces__btn admin-workspaces__btn--delete"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
 
       {/* ================= MODAL ================= */}
+
       {modalOpen && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -183,29 +217,42 @@ function AdminWorkspaces() {
               placeholder="Workspace Number"
               value={formData.workspace_number}
               onChange={(e) =>
-                setFormData({ ...formData, workspace_number: e.target.value })
+                setFormData({
+                  ...formData,
+                  workspace_number: e.target.value,
+                })
               }
             />
 
             <select
               value={formData.type}
               onChange={(e) =>
-                setFormData({ ...formData, type: e.target.value })
+                setFormData({
+                  ...formData,
+                  type: e.target.value,
+                })
               }
             >
               <option value="standard">Standard</option>
+
               <option value="premium">Premium</option>
+
               <option value="meeting_room">Meeting Room</option>
             </select>
 
             <select
               value={formData.status}
               onChange={(e) =>
-                setFormData({ ...formData, status: e.target.value })
+                setFormData({
+                  ...formData,
+                  status: e.target.value,
+                })
               }
             >
               <option value="available">Available</option>
+
               <option value="booked">Booked</option>
+
               <option value="maintenance">Maintenance</option>
             </select>
 

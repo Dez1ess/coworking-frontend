@@ -8,11 +8,19 @@ interface Review {
   rating: number;
   review_text: string;
   user_id: number;
+  comments?: Comment[];
 }
 
 interface ReviewStats {
   total_reviews: number;
   average_rating: number;
+}
+
+interface Comment {
+  comment_id: number;
+  comment_text: string;
+  created_at: string;
+  admin_name: string;
 }
 
 function StarRating({ rating }: { rating: number }) {
@@ -62,7 +70,7 @@ function Reviews_Section() {
           `${import.meta.env.VITE_API_URL}/api/reviews`,
           {
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
 
         setReviews(reviewsRes.data);
@@ -74,7 +82,7 @@ function Reviews_Section() {
           total_reviews > 0
             ? reviewsRes.data.reduce(
                 (acc: number, r: Review) => acc + r.rating,
-                0
+                0,
               ) / total_reviews
             : 0;
 
@@ -117,17 +125,17 @@ function Reviews_Section() {
         const res = await axios.put(
           `${import.meta.env.VITE_API_URL}/api/reviews/${editId}`,
           { rating, review_text: text },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
 
         setReviews((prev) =>
-          prev.map((r) => (r.review_id === editId ? { ...r, ...res.data } : r))
+          prev.map((r) => (r.review_id === editId ? { ...r, ...res.data } : r)),
         );
       } else {
         const res = await axios.post(
           `${import.meta.env.VITE_API_URL}/api/reviews`,
           { rating, review_text: text },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
 
         setReviews((prev) => [res.data, ...prev]);
@@ -154,7 +162,7 @@ function Reviews_Section() {
       `${import.meta.env.VITE_API_URL}/api/reviews/${reviewId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
-      }
+      },
     );
 
     setReviews((prev) => prev.filter((r) => r.review_id !== reviewId));
@@ -209,19 +217,25 @@ function Reviews_Section() {
           {reviews.length > 0 ? (
             reviews.map((review) => (
               <div key={review.review_id} className="reviews-card">
+                {/* TOP */}
                 <div className="reviews-card-top">
                   <div className="reviews-card-top-info">
                     <div className="reviews-card-top-info__name">
                       {review.username}
                     </div>
+
                     <div className="reviews-card-top-info__date">
                       {formatDate(review.review_date)}
                     </div>
                   </div>
+
                   <StarRating rating={review.rating} />
                 </div>
+
+                {/* REVIEW TEXT */}
                 <div className="reviews-card__descr">{review.review_text}</div>
 
+                {/* USER ACTIONS */}
                 {currentUserId && currentUserId === Number(review.user_id) && (
                   <div className="reviews-card__actions">
                     <div
@@ -230,12 +244,39 @@ function Reviews_Section() {
                     >
                       ✏️ Edit
                     </div>
+
                     <div
                       className="reviews-card__actions--delete"
                       onClick={() => handleDelete(review.review_id)}
                     >
                       🗑️ Delete
                     </div>
+                  </div>
+                )}
+
+                {/* ADMIN COMMENTS */}
+                {review.comments && review.comments.length > 0 && (
+                  <div className="reviews-card-comments">
+                    <div className="reviews-card-comments__title">
+                      Admin response
+                    </div>
+
+                    {review.comments.map((c) => (
+                      <div key={c.comment_id} className="reviews-card-comment">
+                        <div className="reviews-card-comment__meta">
+                          <span className="admin-name">
+                            {c.admin_name} (admin)
+                          </span>
+                          <span className="date">
+                            {formatDate(c.created_at)}
+                          </span>
+                        </div>
+
+                        <div className="reviews-card-comment__text">
+                          {c.comment_text}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>

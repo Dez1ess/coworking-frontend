@@ -129,7 +129,7 @@ function Dashboard_Section() {
         setUser(res.data);
         console.log(res.data);
       } catch (err) {
-        console.error(err);
+        console.error(err); 
       }
     };
 
