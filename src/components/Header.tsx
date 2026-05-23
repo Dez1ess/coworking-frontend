@@ -52,6 +52,10 @@ function Header() {
                   <Link to="/admin">Dashboard</Link>
                 </li>
 
+                <li className={isActive("/admin/tariffs") ? "active" : ""}>
+                  <Link to="/admin/tariffs">Tariffs</Link>
+                </li>
+
                 <li className={isActive("/admin/workspaces") ? "active" : ""}>
                   <Link to="/admin/workspaces">Workspaces</Link>
                 </li>
