@@ -1,0 +1,223 @@
+.adminUsers {
+  margin-top: 110px;
+  background: #f6f7fb;
+  min-height: 100vh;
+
+  h1 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #111827;
+  }
+
+  /* LOADING */
+  .adminLoading {
+    padding: 24px;
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  /* TOP BAR (SEARCH) */
+  .topBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+    input {
+      width: 340px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      outline: none;
+      font-size: 14px;
+      transition: 0.2s ease;
+      box-shadow: 0 0 0 2px rgba(45, 46, 110, 0.15);
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+      }
+    }
+  }
+
+  /* GRID */
+  .usersGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 18px;
+  }
+
+  /* CARD */
+  .userCard {
+    min-height: 190px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px;
+    border: 4px solid #e5e7eb;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  /* HEADER */
+  .userHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+
+    .name {
+      font-size: 19px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.2px;
+    }
+
+    .email {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .badge {
+      font-size: 13px;
+      padding: 6px 12px;
+    }
+  }
+
+  /* ROLE ROW */
+  .roleRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+
+    span {
+      font-size: 17px;
+      color: #6b7280;
+    }
+  }
+
+  /* ROLE BADGE (READ ONLY) */
+  .roleBadge {
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    background: #f3f4f6;
+    color: #374151;
+  }
+
+  .roleBadge.admin {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .roleBadge.user {
+    background: #e0e7ff;
+    color: #3730a3;
+  }
+
+  /* ACTIONS */
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 12px;
+      background: #ef4444;
+      transition: 0.2s ease;
+      outline: none;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background: #dc2626;
+        color: #fff;
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+
+  /* MODAL OVERLAY */
+  .modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+
+  /* MODAL BOX */
+  .modal {
+    width: 380px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    p {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+  }
+
+  /* MODAL ACTIONS */
+  .modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    button {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .cancel {
+      background: #e5e7eb;
+      color: #111827;
+
+      &:hover {
+        background: #d1d5db;
+      }
+    }
+
+    .danger {
+      background: #ef4444;
+      color: #fff;
+
+      &:hover {
+        background: #dc2626;
+      }
+    }
+  }
+}
