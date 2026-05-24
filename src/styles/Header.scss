@@ -43,9 +43,10 @@
         position: relative;
 
         a {
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 500;
           color: var(--black);
+          transition: all 0.25s ease;
 
           &::after {
             content: "";
@@ -152,6 +153,8 @@
       font-weight: 600;
 
       transition: 0.25s ease;
+
+      cursor: pointer;
 
       &:hover {
         background: var(--secondary);
