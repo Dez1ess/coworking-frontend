@@ -9,6 +9,8 @@ import "./styles/_all.scss";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
+import ScrollToTop from "./components/ScrollToTop";
+
 function App() {
   const location = useLocation();
   const [showLoader, setShowLoader] = useState(false);
@@ -33,6 +35,7 @@ function App() {
           filter: showLoader ? "blur(4px)" : "none",
         }}
       >
+        <ScrollToTop />
         <Outlet />
       </div>
       <Footer />
