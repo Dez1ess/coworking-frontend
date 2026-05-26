@@ -31,7 +31,7 @@ function Workspaces_Section() {
     const fetchTariffs = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/tariffs`
+          `${import.meta.env.VITE_API_URL}/api/tariffs`,
         );
         setTariffs(response.data);
       } catch (err) {
@@ -42,10 +42,13 @@ function Workspaces_Section() {
   }, []);
 
   // ===== Map tariffs =====
-  const planMap = tariffs.reduce((acc, t) => {
-    acc[t.plan_type] = t;
-    return acc;
-  }, {} as Record<string, Tariff>);
+  const planMap = tariffs.reduce(
+    (acc, t) => {
+      acc[t.plan_type] = t;
+      return acc;
+    },
+    {} as Record<string, Tariff>,
+  );
 
   // Функція для перевірки занятості при виборі дати в календарі
   const getAvailabilityCheckRange = (date: Date, plan: string) => {
@@ -86,7 +89,7 @@ function Workspaces_Section() {
       try {
         // Отримуємо ВСІ workspace'и
         const allResponse = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/workspaces`
+          `${import.meta.env.VITE_API_URL}/api/workspaces`,
         );
         let allSpaces: Record<string, Space[]> = {
           standard: [],
@@ -108,26 +111,26 @@ function Workspaces_Section() {
         if (selectedDate) {
           const timeRange = getAvailabilityCheckRange(
             selectedDate,
-            selectedPlan
+            selectedPlan,
           );
 
           if (timeRange) {
             const url = `${
               import.meta.env.VITE_API_URL
             }/api/workspaces?start_time=${encodeURIComponent(
-              timeRange.start
+              timeRange.start,
             )}&end_time=${encodeURIComponent(timeRange.end)}`;
             const availableResponse = await axios.get(url);
             availableIds = new Set(
               availableResponse.data
                 .filter((s: Space) => s.status === "available")
-                .map((s: Space) => s.workspace_id)
+                .map((s: Space) => s.workspace_id),
             );
           }
         } else {
           // всі доступні
           Object.values(allSpaces).forEach((typeSpaces) =>
-            typeSpaces.forEach((s) => availableIds.add(s.workspace_id))
+            typeSpaces.forEach((s) => availableIds.add(s.workspace_id)),
           );
         }
 
@@ -217,7 +220,7 @@ function Workspaces_Section() {
       const { total } = updatePricing();
 
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/bookings`,
+        `${import.meta.env.VITE_API_URL}/api/stripe/create-checkout-session`,
         {
           workspace_id: workspace.workspace_id,
           workspace_number: workspace.workspace_number,
@@ -225,32 +228,20 @@ function Workspaces_Section() {
           start_time: timeRange.start,
           end_time: timeRange.end,
           price: total,
-          cancelled: false,
         },
         {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
 
-      if (res.status === 200 || res.status === 201) {
-        const startDate = new Date(timeRange.start);
-        alert(
-          `✅ Booking Confirmed!\n\nPlan: ${
-            tariff.plan_name
-          }\nDate: ${startDate.toLocaleDateString()}\nSpace: ${selectedSpace}\nTotal: $${total.toFixed(
-            2
-          )}`
-        );
-
-        // Очищаємо форму
-        setSelectedDate(null);
-        setSelectedSpace(null);
-      }
+      window.location.href = res.data.url;
     } catch (err: any) {
       console.error(err);
       if (err.response?.status === 409) {
         alert(
-          "This workspace is no longer available. Please select another one."
+          "This workspace is no longer available. Please select another one.",
         );
       } else {
         alert("Booking error");
@@ -283,7 +274,7 @@ function Workspaces_Section() {
       const lastDay = new Date(
         current.getFullYear(),
         current.getMonth() + 1,
-        0
+        0,
       ).getDate();
       const firstDay = current.getDay();
       const weeks: JSX.Element[] = [];
@@ -308,7 +299,7 @@ function Workspaces_Section() {
             onClick={() => !disabled && handleDateSelect(date)}
           >
             {day}
-          </td>
+          </td>,
         );
 
         if (cells.length === 7) {
@@ -334,7 +325,7 @@ function Workspaces_Section() {
             ))}
           </tr>
           {weeks}
-        </tbody>
+        </tbody>,
       );
     }
     setCalendarHTML(months);
