@@ -105,7 +105,10 @@ function Header() {
     <div className="container-wr">
       <div className="container">
         <header className="header">
-          <Link to={user ? "/dashboard" : "/"} className="header__logo">
+          <Link
+            to={isAdmin ? "/admin" : user ? "/dashboard" : "/"}
+            className="header__logo"
+          >
             <img src={logoImg} alt="logo" />
           </Link>
 
