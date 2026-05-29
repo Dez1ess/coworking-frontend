@@ -22,7 +22,7 @@ const AdminUsers: React.FC = () => {
     try {
       setLoading(true);
 
-      const res = await axios.get("/api/users", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -66,11 +66,14 @@ const AdminUsers: React.FC = () => {
     if (!deleteTarget) return;
 
     try {
-      await axios.delete(`/api/users/${deleteTarget.user_id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/users/${deleteTarget.user_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         },
-      });
+      );
 
       setUsers((prev) =>
         prev.filter((u) => u.user_id !== deleteTarget.user_id),
