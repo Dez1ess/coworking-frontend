@@ -16,7 +16,7 @@ import Bookings from "./pages/Bookings";
 import Payments from "./pages/Payments";
 import Reviews from "./pages/Reviews";
 
-//Admin Pages
+// Admin Pages
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminWorkspaces from "./pages/AdminWorkspaces";
 import AdminBookings from "./pages/AdminBookings";
@@ -26,18 +26,49 @@ import AdminUsers from "./pages/AdminUsers";
 
 import BookingSuccess from "./pages/BookingSuccess";
 
-const PublicLayout = () => {
-  const user = localStorage.getItem("user");
+/* =========================
+   SAFE USER PARSE
+========================= */
 
+const getUser = () => {
+  try {
+    const raw = localStorage.getItem("user");
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+};
+
+/* =========================
+   LAYOUTS
+========================= */
+
+const PublicLayout = () => {
+  const user = getUser();
+
+  // role-based redirect
   if (user) {
+    if (user.role === "admin") {
+      return <Navigate to="/admin" replace />;
+    }
     return <Navigate to="/dashboard" replace />;
   }
 
   return <Outlet />;
 };
 
+const ProtectedLayout = () => {
+  const user = getUser();
+
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+};
+
 const AdminLayout = () => {
-  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const user = getUser();
 
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -50,15 +81,9 @@ const AdminLayout = () => {
   return <Outlet />;
 };
 
-const ProtectedLayout = () => {
-  const user = localStorage.getItem("user");
-
-  if (!user) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <Outlet />;
-};
+/* =========================
+   ROUTER
+========================= */
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +101,7 @@ export const router = createBrowserRouter([
           { path: "/login", element: <Login /> },
         ],
       },
+
       {
         element: <ProtectedLayout />,
         children: [
@@ -87,6 +113,7 @@ export const router = createBrowserRouter([
           { path: "/booking-success", element: <BookingSuccess /> },
         ],
       },
+
       {
         element: <AdminLayout />,
         children: [
